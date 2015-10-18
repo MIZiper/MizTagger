@@ -1,6 +1,6 @@
 # MizTagger
 MizTagger is a tool help managing files with Tags.
-Programmers must be familiar with flags and binary logic(and, or, not). Then use the binary to filter what we won't.
+Programmers must be familiar with flags and binary logic(and, or, not). Then use the binary to filter what we want.
 1011010011101000101011101, hooray! (Typed randomly)
 
 The tool is targeted to .NET Framework 4, but it's source code here, so use visual studio to compile it, should be OK.
