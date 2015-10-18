@@ -1,0 +1,82 @@
+﻿<Page x:Class="MizTagger.Pages.SearchCondition"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      xmlns:converter="clr-namespace:MizTagger.Converter"
+      KeepAlive="True"
+	  Title="SearchCondition">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="textSub" HorizontalAlignment="Stretch" Margin="5" TextWrapping="NoWrap" VerticalAlignment="Top" Grid.Column="0"/>
+            <Button Click="clkSearchByString" Content="By SubString" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Grid.Column="1"/>
+            <Separator Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Tag Type" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox DisplayMemberPath="Typename" x:Name="comboTypes" SelectionChanged="comboTypes_SelectionChanged" HorizontalAlignment="Stretch" Margin="5" Grid.Row="1" Grid.Column="0"/>
+            <Label Content="Tags" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1"/>
+            <ComboBox x:Name="comboTypedTags" DisplayMemberPath="Tagname" HorizontalAlignment="Stretch" Margin="5" Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Filter Logic" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2"/>
+            <ComboBox x:Name="comboLogic" HorizontalAlignment="Stretch" Margin="5" Grid.Row="1" Grid.Column="2"/>
+            <Button Click="clkOK" Margin="5" Content="Add" Grid.Row="1" Grid.Column="3"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ListBox x:Name="listFilters"
+                     ContextMenuOpening="listFilters_ContextMenuOpening"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Grid.Row="0">
+                <ListBox.Resources>
+                    <converter:Logic2Color x:Key="logicConverter"/>
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="5" Padding="5" Text="{Binding Path=Tag.Tagname}"
+                                   Background="{Binding Logic,Converter={StaticResource logicConverter}}" Foreground="White"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="menuItemDelFilter" Header="Remove" Click="menuItemDelFilter_Click"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+            <Button Content="By Tags" Click="clkSearchByTags" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Bottom" Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</Page>
